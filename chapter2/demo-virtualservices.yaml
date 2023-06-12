@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: demo-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - demo-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /v1/user
+    route:
+    - destination:
+        host: user-mesh-service
+        port:
+          number: 5000
+  - match:
+    - uri:
+        prefix: /v1/book
+    route:
+    - destination:
+        host: book-mesh-service
+        port:
+          number: 5000
