@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-rest-deployment
+spec:
+  selector:
+    matchLabels:
+      app: book-rest
+      version: v1.0
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: book-rest
+        version: v1.0
+    spec:
+      containers:
+      - name: book-rest
+        image: kix.ocir.io/apackrsct01/oci-demo-registry/sample-book-rest:latest
+        imagePullPolicy: Always
+        ports:
+        - name: book-rest
+          containerPort: 5000
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+      imagePullSecrets:
+        - name: ocirsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-rest-lb
+  labels:
+    app: book-rest
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: book-rest
