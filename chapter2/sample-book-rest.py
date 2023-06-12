@@ -22,7 +22,7 @@ fake.add_provider(Books)
 bookpdb_host_ip = 'oci-demo-msadb-scan.sub05220430511.ocidemo.oraclevcn.com'
 bookpdb_svc_name = 'bookpdb.sub05220430511.ocidemo.oraclevcn.com'
 bookpdb_user_name = 'system'
-bookpdb_passwd = 'MSAdb##01'
+bookpdb_passwd = 'xxxxxxxxxx'
 bookpdb_port = 1521
 
 @api.route('/')  
