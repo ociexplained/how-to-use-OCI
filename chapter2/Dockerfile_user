@@ -1,0 +1,12 @@
+FROM oraclelinux:8-slim 
+COPY . /app
+WORKDIR /app
+RUN microdnf install -y yum && \ 
+    yum install -y python38 && \
+    yum install -y oracle-instantclient-release-el8 && \
+    yum install -y oracle-instantclient-basic && \
+    yum clean all && \ 
+    pip3 install -r requirements.txt
+EXPOSE 5000
+ENV FLASK_APP=sample-user-rest
+CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
