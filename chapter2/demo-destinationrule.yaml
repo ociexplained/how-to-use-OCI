@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: demo-destinationrule
+spec:
+  host: user-mesh-service
+  subsets:
+  - name: existing
+    labels:
+      version: v1.0
+  - name: updated
+    labels:
+      version: v1.1
