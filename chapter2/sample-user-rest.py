@@ -17,7 +17,7 @@ fake = Faker()
 userpdb_host_ip = 'oci-demo-msadb-scan.sub05220430511.ocidemo.oraclevcn.com'
 userpdb_svc_name = 'userpdb.sub05220430511.ocidemo.oraclevcn.com'
 userpdb_user_name = 'system'
-userpdb_passwd = 'MSAdb##01'
+userpdb_passwd = 'xxxxxxxxxx'
 userpdb_port = 1521
 
 @api.route('/')  
