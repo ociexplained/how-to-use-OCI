@@ -49,6 +49,7 @@ def book():
 
         #상품 등록 이력을 기록 
         oradb_sql_val = json.dumps(book_data,ensure_ascii=False,default=str)
+        oradb_sql_val = oradb_sql_val.replace("'","''")
         oradb_sql = "insert into book(id, data_loaded,json_data) values (sys_guid(),systimestamp,'"+ oradb_sql_val + "')"
         oradb_conn.cursor().execute(oradb_sql)
         oradb_conn.commit()
