@@ -1,0 +1,226 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "\n%script\n\n------------------------------------------------------------------------------\n-- chapter4/oml4sql_analysis.py\n-- OML4SQL을 활용한 분석 스크립트, ADB의 OML노트북에서 호출\n------------------------------------------------------------------------------\n\n\nBEGIN dbms_data_mining.drop_model('ocidemo_cpu_forecast');\nEND;\n/\n\nDECLARE \n     v_setlst dbms_data_mining.SETTING_LIST;\nBEGIN \n     v_setlst(dbms_data_mining.ALGO_NAME)  := dbms_data_mining.ALGO_EXPONENTIAL_SMOOTHING;\n     v_setlst(dbms_data_mining.EXSM_INTERVAL) := dbms_data_mining.EXSM_INTERVAL_MONTH; \n     v_setlst(dbms_data_mining.EXSM_PREDICTION_STEP)  := '6';\n     v_setlst(dbms_data_mining.EXSM_MODEL) := dbms_data_mining.EXSM_HOLT;\n     v_setlst(dbms_data_mining.EXSM_ACCUMULATE) :=  dbms_data_mining.EXSM_ACCU_AVG;    \n     \n     dbms_data_mining.create_model2(\n            model_name => 'ocidemo_cpu_forecast', mining_function => 'TIME_SERIES', data_query => 'select time,cpu from ocidemo_ml', set_list => v_setlst, case_id_column_name => 'TIME', target_column_name => 'CPU');\nEND;\n/",
+      "user": "ADMIN",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/plsql",
+        "fontSize": 9,
+        "results": {},
+        "editorSetting": {
+          "language": "plsql",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1692923307270_-170785343",
+      "id": "20230825-002827_1342289982",
+      "dateCreated": "2023-08-25T00:28:41+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:41",
+      "dateUpdated": "2023-08-25T00:31:57+0000",
+      "dateFinished": "2023-08-25T00:30:20+0000",
+      "dateStarted": "2023-08-25T00:30:20+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nPL/SQL procedure successfully completed.\n\n\n---------------------------\n\nPL/SQL procedure successfully completed.\n\n\n---------------------------\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\r\n\r\nselect case_id \"date\", round(value,2) actual_cpu, round(prediction,2) forcast_cpu, round(lower,2) lower_bound, round(upper,2) upper_bound\r\n from  dm$vpocidemo_cpu_forecast\r\n order by 1 ;\r\n",
+      "user": "ADMIN",
+      "dateUpdated": "2023-08-25T00:37:54+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/osql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300,
+              "optionOpen": true,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "date": "date",
+                      "ACTUAL_CPU": "number",
+                      "FORCAST_CPU": "number",
+                      "LOWER_BOUND": "number",
+                      "UPPER_BOUND": "number"
+                    }
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "date",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "ACTUAL_CPU",
+                  "index": 1,
+                  "aggr": "avg"
+                },
+                {
+                  "name": "FORCAST_CPU",
+                  "index": 2,
+                  "aggr": "avg"
+                },
+                {
+                  "name": "LOWER_BOUND",
+                  "index": 3,
+                  "aggr": "avg"
+                },
+                {
+                  "name": "UPPER_BOUND",
+                  "index": 4,
+                  "aggr": "avg"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1692923346930_1443045242",
+      "id": "paragraph_1692923346930_1443045242",
+      "dateCreated": "2023-08-25T00:29:06+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:68",
+      "dateFinished": "2023-08-25T00:32:03+0000",
+      "dateStarted": "2023-08-25T00:32:03+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "date\tACTUAL_CPU\tFORCAST_CPU\tLOWER_BOUND\tUPPER_BOUND\n2021-06-01 00:00:00\t17.78\t16.38\t\t\n2021-07-01 00:00:00\t15.22\t18.23\t\t\n2021-08-01 00:00:00\t15.71\t16.6\t\t\n2021-09-01 00:00:00\t15.39\t16.64\t\t\n2021-10-01 00:00:00\t14.87\t16.4\t\t\n2021-11-01 00:00:00\t16.35\t15.94\t\t\n2021-12-01 00:00:00\t15.44\t17.01\t\t\n2022-01-01 00:00:00\t16.3\t16.51\t\t\n2022-02-01 00:00:00\t14.88\t17.09\t\t\n2022-03-01 00:00:00\t14.01\t16.09\t\t\n2022-04-01 00:00:00\t13.81\t15.2\t\t\n2022-05-01 00:00:00\t13.35\t14.84\t\t\n2022-06-01 00:00:00\t13.37\t14.41\t\t\n2022-07-01 00:00:00\t13.71\t14.33\t\t\n2022-08-01 00:00:00\t13.54\t14.58\t\t\n2022-09-01 00:00:00\t15.75\t14.5\t\t\n2022-10-01 00:00:00\t28.04\t16.23\t\t\n2022-11-01 00:00:00\t27.24\t26.29\t\t\n2022-12-01 00:00:00\t25.79\t27.78\t\t\n2023-01-01 00:00:00\t25.16\t26.96\t\t\n2023-02-01 00:00:00\t24.47\t26.29\t\t\n2023-03-01 00:00:00\t34.25\t25.6\t\t\n2023-04-01 00:00:00\t32.62\t33.16\t\t\n2023-05-01 00:00:00\t32.85\t33.48\t\t\n2023-06-01 00:00:00\t38.31\t33.73\t\t\n2023-07-01 00:00:00\t36.13\t38.09\t\t\n2023-08-01 00:00:00\t\t37.29\t30.21\t44.37\n2023-09-01 00:00:00\t\t38.03\t29.02\t47.05\n2023-10-01 00:00:00\t\t38.78\t28.17\t49.38\n2023-11-01 00:00:00\t\t39.52\t27.54\t51.51\n2023-12-01 00:00:00\t\t40.27\t27.04\t53.49\n2024-01-01 00:00:00\t\t41.01\t26.66\t55.37\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\n",
+      "user": "ADMIN",
+      "dateUpdated": "2023-08-25T00:32:29+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/osql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1692923523056_1607056794",
+      "id": "paragraph_1692923523056_1607056794",
+      "dateCreated": "2023-08-25T00:32:03+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:175"
+    }
+  ],
+  "name": "OML-demo",
+  "id": "535",
+  "defaultInterpreterGroup": "spark",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "2BMEBP7AX:shared_process": [],
+    "2BNXGR7RV:shared_process": [],
+    "2BJV7EZ3Y:shared_process": [],
+    "2BPS2EJYY:shared_process": [],
+    "2BKYQ82ME:shared_process": [],
+    "2BKHBZP2Y:shared_process": [],
+    "2BP2SQT52:shared_process": [],
+    "2BNFPEGCH:shared_process": [],
+    "2BP4TWNZF:shared_process": [],
+    "2BP16A6NH:shared_process": [],
+    "2BP7C6CPC:shared_process": [],
+    "2BNJ72TWM:shared_process": [],
+    "2BKG2QG3C:shared_process": [],
+    "2BMEFUU1Y:shared_process": [],
+    "2BJWNGG3F:shared_process": [],
+    "2BKGZ6M6X:shared_process": [],
+    "2BKAC5W8U:shared_process": [],
+    "2BKZASDAM:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}

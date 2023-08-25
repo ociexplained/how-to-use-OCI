@@ -1,0 +1,56 @@
+//------------------------------------------------------------------------------
+// chapter2/pipeline.txt
+// git을 연동한 jenkins ci/cd를 파이프라인으로 구성
+// git clone -> 도커 빌드 -> OCIR 이미지 push -> oke 배포 단계로 수행됨
+// github 경로, 도커이미지 경로를 실습환경에 맞춰 변경후 진행
+//------------------------------------------------------------------------------
+
+pipeline {
+    agent any
+    stages {
+        stage('Clone Git') {
+            steps {
+                script{
+                    sh "pwd"
+                    sh "rm -rf how-to-use-OCI"
+		//------------------------------------------------------------------------------
+		// github 경로를 변경할 것
+		//------------------------------------------------------------------------------
+                    sh "git clone https://ociexplained:xxxxxxxxxxxxxxxxxx@github.com/ociexplained/how-to-use-OCI.git"
+                }
+            }
+        }
+        stage('Build Container') {
+            steps{
+                dir('how-to-use-OCI'){
+                    sh "pwd"
+                    sh "docker container ls"
+                    sh "docker build -t sample-user-rest:v1.$BUILD_NUMBER -f Dockerfile_user ."
+                    sh "docker images"
+                }
+            }
+        }
+        stage('Push to OCIR') {
+            steps {
+                script {
+                    sh "docker login yny.ocir.io"
+		//------------------------------------------------------------------------------
+		// 도커 이미지 경로를 변경할 것
+		//------------------------------------------------------------------------------
+                    sh "docker tag sample-user-rest:v1.$BUILD_NUMBER yny.ocir.io/ociexplained/oci-demo-repo/sample-user-rest:latest"
+                    sh "docker push yny.ocir.io/ociexplained/oci-demo-repo/sample-user-rest"
+                    sh "docker images"
+                }
+            }
+        }
+        stage('Deploy OKE') {
+            steps{
+                dir('how-to-use-OCI') {
+                    sh "kubectl rollout restart deployment user-rest-deployment"
+                    sh "kubectl get pods"
+                    sh "echo 'done'"
+                }
+            }
+        }
+    }
+}

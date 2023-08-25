@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+# chapter2/book-mesh.yaml
+# k8s 이스티오에 서비스 메시로 도서 앱을 배포  
+# 도커 이미지 경로를 실습환경에 맞춘 후 진행
+#------------------------------------------------------------------------------
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,17 +12,18 @@ spec:
   selector:
     matchLabels:
       app: book-mesh
-      version: v1.0
   replicas: 3
   template:
     metadata:
       labels:
         app: book-mesh
-        version: v1.0
     spec:
       containers:
       - name: book-mesh
-        image: kix.ocir.io/apackrsct01/oci-demo-registry/sample-book-rest:latest
+        #-----------------------------------------------------------------------
+        # 도커 이미지 경로(실습환경에 맞춰 변경할 것)
+        #-----------------------------------------------------------------------
+        image: yny.ocir.io/ociexplained/oci-demo-repo/sample-book-rest:latest
         imagePullPolicy: Always
         ports:
         - name: book-mesh
@@ -36,6 +43,10 @@ metadata:
   name: book-mesh-service
   labels:
     app: book-mesh
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
 spec:
   type: ClusterIP
   ports:

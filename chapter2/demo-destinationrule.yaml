@@ -1,3 +1,8 @@
+#------------------------------------------------------------------------------
+# chapter2/demo-destinationrule.yaml
+# 유저메시의 v1.1, v1.2 서비스의 라우팅을 위한 서브셋 구성
+#------------------------------------------------------------------------------
+
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
@@ -7,7 +12,7 @@ spec:
   subsets:
   - name: existing
     labels:
-      version: v1.0
+      version: v1.1
   - name: updated
     labels:
-      version: v1.1
+      version: v1.2

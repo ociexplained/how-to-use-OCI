@@ -1,9 +1,15 @@
-#flask를 이용한 book 관리 
+#------------------------------------------------------------------------------
+# chapter2/sample-book-rest.py
+# oracle의 스키마리스 json 저장소를 기반으로 restful 서비스를 구현
+# GET, POST를 제공
+# DB 접속 정보를 실습환경에 맞춘 후 진행
+#------------------------------------------------------------------------------
+
 import logging, cx_Oracle, json
 from datetime import datetime
-from flask import Flask
+from flask import Flask, Response
 from flask_restx import Api, Resource 
-from faker import Faker, Reponse #샘플 데이터 생성용 모듈
+from faker import Faker #샘플 데이터 생성용 모듈
 from faker_datasets import Provider, add_dataset
 
 app = Flask(__name__)
@@ -18,17 +24,19 @@ class Books(Provider):
 fake = Faker()
 fake.add_provider(Books)
 
-#DB 접속 정보 
-bookpdb_host_ip = 'oci-demo-msadb-scan.sub05220430511.ocidemo.oraclevcn.com'
-bookpdb_svc_name = 'bookpdb.sub05220430511.ocidemo.oraclevcn.com'
+#------------------------------------------------------------------------------
+# DB 접속 정보 (테스트 환경에 맞춰 변경할 것)
+#------------------------------------------------------------------------------
+bookpdb_host_ip = 'oci-demo-msadb-scan.xxxxxxxxxx.ocidemo.oraclevcn.com'
+bookpdb_svc_name = 'bookpdb.xxxxxxxxxxx.ocidemo.oraclevcn.com'
 bookpdb_user_name = 'system'
-bookpdb_passwd = 'xxxxxxxxxx'
+bookpdb_passwd = 'xxxxxxxxx'
 bookpdb_port = 1521
 
 @api.route('/')  
 class book(Resource):
     def post(self):
-        '''상품 정보를 등록한다'''
+        '''도서 정보를 등록한다'''
         try:
             #데이터 생성 
             book = fake.book()
@@ -44,9 +52,10 @@ class book(Resource):
 
             #상품 등록 이력을 기록 
             oradb_sql_val = json.dumps(book_data,ensure_ascii=False,default=str)
-            oradb_sql = "insert into book (id, data_loaded,json_data) values (sys_guid(),systimestamp,'"+ oradb_sql_val + "')"
+            oradb_sql = "insert into book(id, data_loaded,json_data) values (sys_guid(),systimestamp,'"+ oradb_sql_val + "')"
             oradb_conn.cursor().execute(oradb_sql)
             oradb_conn.commit()
+ 
             #db연결 해제 
             oradb_conn.close()
         except Exception as e:
@@ -54,28 +63,30 @@ class book(Resource):
             logger.error(e)
         logger.info("success : inserting data succeeded.")
         return Response(json.dumps(oradb_sql_val, ensure_ascii=False).encode('utf-8'), status=200, content_type='application/json; charset=utf-8')
-
+   
     def get(self):  
-        '''상품 정보를 조회한다'''
+        '''도서 정보를 조회한다'''
         try:
             #oracle db 접속
             oradb_conn = cx_Oracle.connect(bookpdb_user_name, bookpdb_passwd, bookpdb_host_ip + '/' + bookpdb_svc_name)
-            #최종 접속 유저를 조회 
+
+            #최종 접속 사용자를 조회 
             oradb_sql = "select json_object(*)  from book order by data_loaded desc fetch first 10 rows only"
             oradb_results = oradb_conn.cursor().execute(oradb_sql).fetchall()
+
             #db연결 해제 
             oradb_conn.close()
         except Exception as e:
             logger.error("oracle db error : could not fecth data")
             logger.error(e)
         logger.info("success : querying data succeeded.")
-        return Response(json.dumps(oradb_results, ensure_ascii=False).encode('utf-8'), status=200, content_type='application/json; charset=utf-8') 
+        return Response(json.dumps(oradb_results, ensure_ascii=False).encode('utf-8'), status=200, content_type='application/json; charset=utf-8')
 
 @api.route('/hello')  
 class hello(Resource):
     def get(self):  
         '''hello를 조회한다'''
-        return "Hello, OCI!", 200, { "success" : "hello" }
+        return "Hello, OCI!", 200, { "success" : "hello" } 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int("5000"), debug=False)

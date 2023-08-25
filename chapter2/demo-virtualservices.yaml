@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+# chapter2/demo-virtualservices.yaml
+# 기존 virtualservice를 업데이트
+# 유저메시 앱 버전에 따라 v1.1 80%, v1.2 20% 라우팅 정책 적용
+#------------------------------------------------------------------------------
+
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -14,8 +20,16 @@ spec:
     route:
     - destination:
         host: user-mesh-service
+        subset: existing
         port:
           number: 5000
+      weight: 80
+    - destination:
+        host: user-mesh-service
+        subset: updated
+        port:
+          number: 5000
+      weight: 20
   - match:
     - uri:
         prefix: /v1/book

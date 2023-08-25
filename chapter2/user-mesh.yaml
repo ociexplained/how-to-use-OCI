@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+# chapter2/user-mesh.yaml
+# k8s 이스티오에 서비스 메시로 사용자 앱을 배포  
+# 도커 이미지 경로를 실습환경에 맞춘 후 진행
+#------------------------------------------------------------------------------
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,27 +12,25 @@ spec:
   selector:
     matchLabels:
       app: user-mesh
-      version: v1.0
+      version: v1
   replicas: 3
   template:
     metadata:
       labels:
         app: user-mesh
-        version: v1.0
+        version: v1
     spec:
       containers:
       - name: user-mesh
-        image: kix.ocir.io/apackrsct01/oci-demo-registry/sample-user-rest:latest
+        #-----------------------------------------------------------------------
+        # 도커 이미지 경로(실습환경에 맞춰 변경할 것)
+        #-----------------------------------------------------------------------
+        image: yny.ocir.io/ociexplained/oci-demo-repo/sample-user-rest:latest
         imagePullPolicy: Always
         ports:
         - name: user-mesh
           containerPort: 5000
           protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-          requests:
-            cpu: 200m
       imagePullSecrets:
         - name: ocirsecret
 ---
@@ -36,9 +40,14 @@ metadata:
   name: user-mesh-service
   labels:
     app: user-mesh
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
 spec:
   type: ClusterIP
   ports:
   - port: 5000
   selector:
     app: user-mesh
+    version: v1

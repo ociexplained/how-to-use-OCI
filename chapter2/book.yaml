@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+# chapter2/book.yaml
+# k8s에 도서 앱을 배포  
+# 도커 이미지 경로를 실습환경에 맞춘 후 진행
+#------------------------------------------------------------------------------
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,7 +22,10 @@ spec:
     spec:
       containers:
       - name: book-rest
-        image: kix.ocir.io/apackrsct01/oci-demo-registry/sample-book-rest:latest
+        #-----------------------------------------------------------------------
+        # 도커 이미지 경로(실습환경에 맞춰 변경할 것)
+        #-----------------------------------------------------------------------
+        image: yny.ocir.io/ociexplained/oci-demo-repo/sample-book-rest:latest
         imagePullPolicy: Always
         ports:
         - name: book-rest

@@ -1,7 +1,12 @@
-FROM oraclelinux:8-slim 
+#------------------------------------------------------------------------------
+# chapter2/Dockerfile_book
+# 도서 앱을 도커이미지로 빌드
+#------------------------------------------------------------------------------
+
+FROM oraclelinux:8-slim
 COPY . /app
 WORKDIR /app
-RUN microdnf install -y yum && \ 
+RUN microdnf install -y yum && \
     yum install -y python38 && \
     yum install -y oracle-instantclient-release-el8 && \
     yum install -y oracle-instantclient-basic && \

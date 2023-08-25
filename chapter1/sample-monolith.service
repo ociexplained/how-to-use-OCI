@@ -1,0 +1,18 @@
+#------------------------------------------------------------------------------
+# chapter1/sample-monolith.service
+# sample-monolith를 linux service로 등록하여 OS기동시 자동실행하기 위함
+#------------------------------------------------------------------------------
+
+[Unit]
+Description=Demo APP Service to serve flask web-app.
+After=network.target
+
+[Service]
+User=opc
+Group=opc
+WorkingDirectory=/home/opc/venvs/ocisampleweb
+Environment="FLASK_APP=sample-monolith"
+ExecStart=/bin/bash -c "cd /home/opc/venvs/ocisampleweb; source /home/opc/venvs/ocisampleweb/bin/activate ; flask run --host=0.0.0.0"
+
+[Install]
+WantedBy=multi-user.target
