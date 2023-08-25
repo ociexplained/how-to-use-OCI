@@ -24,6 +24,7 @@ def book():
     @add_dataset("books", "books.json", picker="book")
     class Books(Provider):
         pass
+    logging.getLogger('faker').setLevel(logging.ERROR)
     fake = Faker()
     fake.add_provider(Books)
 

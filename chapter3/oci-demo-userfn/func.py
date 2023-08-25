@@ -29,6 +29,8 @@ def user():
     userpdb_user_name = 'system'
     userpdb_passwd = 'xxxxxxxxxx'
     userpdb_port = 1521
+
+    logging.getLogger('faker').setLevel(logging.ERROR)
     fake=Faker("ko_KR")
 
     try:
