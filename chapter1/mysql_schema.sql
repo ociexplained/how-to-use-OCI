@@ -1,5 +1,5 @@
 /*
-  chapter1/mysql_users.sql
+  chapter1/mysql_schema.sql
   mysql에서 사용자 정보를 관리하는 테이블
 */
 

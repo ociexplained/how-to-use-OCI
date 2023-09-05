@@ -12,7 +12,7 @@ BEGIN
    ----------------------------------------------------------------------------
    -- 오브젝트 스토리지 주소 및 json 파일 명 변경
    ----------------------------------------------------------------------------
-   file_uri_list =>'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ociexplained/b/oci-demo-bucket/o/order_2023*.json',
+   file_uri_list =>'https://objectstorage.<region>.oraclecloud.com/n/<namespce-string>/b/oci-demo-bucket/o/order_2023*.json',
    column_list => 'json_document VARCHAR2(4000)',
    field_list => 'json_document CHAR(5000)'
 );

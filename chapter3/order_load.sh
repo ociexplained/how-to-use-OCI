@@ -12,6 +12,6 @@ do
    #------------------------------------------------------------------------------
 	 # API URL 정보 (테스트 환경에 맞춰 변경할 것)
 	 #------------------------------------------------------------------------------
-   curl -X GET https://xxxxxxxxxxxx.apigateway.ap-chuncheon-1.oci.customer-oci.com/v1/order
+   curl -X GET https://xxxxxxxxxxxx.apigateway.<region>.oci.customer-oci.com/v1/order
    i=$(($i+1))
 done

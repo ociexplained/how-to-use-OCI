@@ -25,7 +25,7 @@ spec:
         #-----------------------------------------------------------------------
         # 도커 이미지 경로(실습환경에 맞춰 변경할 것)
         #-----------------------------------------------------------------------
-        image: yny.ocir.io/ociexplained/oci-demo-repo/sample-user-rest:latest
+        image: <region-key>.ocir.io/<tenancy-namespace>/oci-demo-repo/sample-user-rest:latest
         imagePullPolicy: Always
         ports:
         - name: user-rest

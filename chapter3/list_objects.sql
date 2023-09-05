@@ -10,5 +10,5 @@ from   dbms_cloud.list_objects(
           ----------------------------------------------------------------------------
           -- 오브젝트 스토리지 주소 및 json 파일 명 변경
           ----------------------------------------------------------------------------
-         'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ociexplained/b/oci-demo-bucket/o/')
+         'https://objectstorage.<region>.oraclecloud.com/n/<namespace-string>/b/oci-demo-bucket/o/')
 where object_name like 'order_2023%';

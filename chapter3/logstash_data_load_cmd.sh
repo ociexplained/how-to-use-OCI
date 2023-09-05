@@ -5,4 +5,4 @@
 #------------------------------------------------------------------------------
 
 #!/bin/bash
-bin/logstash -e 'input { file {path=>["/home/opc/my-log-objects/**/*.log"] sincedb_path => "NULL" start_position => "beginning" codec => json } } output { stdout {codec => rubydebug} opensearch { hosts => "https://xxxxxxxxxxxxxx.opensearch.ap-chuncheon-1.oci.oraclecloud.com:9200" user => "ocidemo" password => "xxxxxxxxx" index => "logstash-logs-%{+YYYY.MM.dd}" ssl_certificate_verification => false } }'
+bin/logstash -e 'input { file {path=>["/home/opc/my-log-objects/**/*.log"] sincedb_path => "NULL" start_position => "beginning" codec => json } } output { stdout {codec => rubydebug} opensearch { hosts => "https://xxxxxxxxxxxxxx.opensearch.<region>.oci.oraclecloud.com:9200" user => "ocidemo" password => "xxxxxxxxx" index => "logstash-logs-%{+YYYY.MM.dd}" ssl_certificate_verification => false } }'

@@ -33,12 +33,12 @@ pipeline {
         stage('Push to OCIR') {
             steps {
                 script {
-                    sh "docker login yny.ocir.io"
+                    sh "docker login <region-key>.ocir.io"
 		//------------------------------------------------------------------------------
 		// 도커 이미지 경로를 변경할 것
 		//------------------------------------------------------------------------------
-                    sh "docker tag sample-user-rest:v1.$BUILD_NUMBER yny.ocir.io/ociexplained/oci-demo-repo/sample-user-rest:latest"
-                    sh "docker push yny.ocir.io/ociexplained/oci-demo-repo/sample-user-rest"
+                    sh "docker tag sample-user-rest:v1.$BUILD_NUMBER <region-key>.ocir.io/<tenancy-namespace>/oci-demo-repo/sample-user-rest:latest"
+                    sh "docker push <region-key>.ocir.io/<tenancy-namespace>/oci-demo-repo/sample-user-rest"
                     sh "docker images"
                 }
             }
