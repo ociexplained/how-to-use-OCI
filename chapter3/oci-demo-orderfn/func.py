@@ -25,8 +25,8 @@ def order():
     #------------------------------------------------------------------------------
     # API URL 정보 (테스트 환경에 맞춰 변경할 것)
     #------------------------------------------------------------------------------
-    BOOK_API_URL = "https://xxxxxxxxxxxxxx.apigateway.ap-chuncheon-1.oci.customer-oci.com/v1/book"
-    USER_API_URL = "https://xxxxxxxxxxxxxx.apigateway.ap-chuncheon-1.oci.customer-oci.com/v1/user"
+    BOOK_API_URL = "https://xxxxxxxxxxxxxx.apigateway.<region>.oci.customer-oci.com/v1/book"
+    USER_API_URL = "https://xxxxxxxxxxxxxx.apigateway.<region>.oci.customer-oci.com/v1/user"
     signer = oci.auth.signers.get_resource_principals_signer()
     client = oci.object_storage.ObjectStorageClient(config={}, signer=signer)
     namespace = client.get_namespace().data
