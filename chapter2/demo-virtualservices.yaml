@@ -20,16 +20,8 @@ spec:
     route:
     - destination:
         host: user-mesh-service
-        subset: existing
         port:
           number: 5000
-      weight: 80
-    - destination:
-        host: user-mesh-service
-        subset: updated
-        port:
-          number: 5000
-      weight: 20
   - match:
     - uri:
         prefix: /v1/book
@@ -38,3 +30,4 @@ spec:
         host: book-mesh-service
         port:
           number: 5000
+
