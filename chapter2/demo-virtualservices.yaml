@@ -1,7 +1,8 @@
 #------------------------------------------------------------------------------
-# chapter2/demo-virtualservices.yaml
-# 기존 virtualservice를 업데이트
-# 유저메시 앱 버전에 따라 v1.1 80%, v1.2 20% 라우팅 정책 적용
+# chapter2/virtualservices.yaml
+# k8s에 배포한서비스를 이스티오 인그레스 게이트웨이와 연결하는 virtual service 생성
+# 유저서비스 v1과 도서 서비스 v1이 연계됨
+# prefix /v1/user, /v1/book을 두어 API URI를 구성
 #------------------------------------------------------------------------------
 
 apiVersion: networking.istio.io/v1alpha3
