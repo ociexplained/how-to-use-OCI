@@ -12,13 +12,13 @@ spec:
   selector:
     matchLabels:
       app: user-mesh
-      version: v1
+      version: v1.1
   replicas: 3
   template:
     metadata:
       labels:
         app: user-mesh
-        version: v1
+        version: v1.1
     spec:
       containers:
       - name: user-mesh
