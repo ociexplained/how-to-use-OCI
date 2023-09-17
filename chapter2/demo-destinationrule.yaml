@@ -16,3 +16,4 @@ spec:
   - name: updated
     labels:
       version: v1.2
+
