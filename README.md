@@ -7,7 +7,7 @@
 
 
 
-- 이 저장소는 바로쓰는 오라클 클라우드 (Build and Deploy Modern Apps with Oracle Cloud)의 전체 소스코드를 제공합니다.
+- 이 저장소는 바로 쓰는 오라클 클라우드 (Build and Deploy Modern Apps with Oracle Cloud)의 전체 소스코드를 제공합니다.
 - 책의 오류를 발견하시면 ociexplained@gmail.com 으로 보내주시면 감사하겠습니다.
 - 책 구매 링크 : TBD
 
