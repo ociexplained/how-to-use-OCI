@@ -1,5 +1,3 @@
-# Github Readme v1.0
-
 # 바로쓰는 오라클 클라우드 (Build and Deploy Modern Apps with Oracle Cloud)
 
 이 책은 오라클 클라우드와 오픈 소스 기술을 중점으로 다루는 실습 중심 도서입니다. 
