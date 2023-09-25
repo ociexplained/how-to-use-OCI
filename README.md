@@ -1,4 +1,4 @@
-# 바로쓰는 오라클 클라우드 (부제 : Build and Deploy Modern Apps with Oracle Cloud)
+# 바로 쓰는 오라클 클라우드 (부제 : Build and Deploy Modern Apps with Oracle Cloud)
 
 - 이 책은 오라클 클라우드와 오픈 소스 기술을 중점으로 다루는 실습 중심 도서입니다.
 - 실제 클라우드 환경에서 유용한 서비스를 구현하면서 오라클 클라우드의 활용법을 익히는 데 초점이 맞춰져 있으며, 독자가 미래 업무 요구 사항에 맞게 더 정교한 시스템을 구성하는 데 도움을 주기 위한 자료로 구성되었습니다.
