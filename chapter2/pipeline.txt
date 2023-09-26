@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // chapter2/pipeline.txt
 // git을 연동한 jenkins ci/cd를 파이프라인으로 구성
-// git clone -> 도커 빌드 -> OCIR 이미지 push -> oke 배포 단계로 수행됨
+// git clone -> 도커 빌드 -> Container Registry 이미지 push -> oke 배포 단계로 수행됨
 // github 경로, 도커이미지 경로를 실습환경에 맞춰 변경후 진행
 //------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ pipeline {
                 }
             }
         }
-        stage('Push to OCIR') {
+        stage('Push to Container Registry') {
             steps {
                 script {
                     sh "docker login <region-key>.ocir.io"
