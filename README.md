@@ -9,10 +9,13 @@
 
 - 이 저장소는 바로 쓰는 오라클 클라우드 (Build and Deploy Modern Apps with Oracle Cloud)의 전체 소스코드를 제공합니다.
 - 책의 오류를 발견하시면 ociexplained@gmail.com 으로 보내주시면 감사하겠습니다.
-- 책 구매 링크 : 에이콘출판사 http://www.acornpub.co.kr/book/oracle-cloud
-              교보문고 https://product.kyobobook.co.kr/detail/S000211502186
-              예스24 https://www.yes24.com/Product/Goods/123773068
-              알라딘 https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=329277786
+
+---  
+## 책 구매 링크
+- 에이콘출판사 http://www.acornpub.co.kr/book/oracle-cloud
+- 교보문고 https://product.kyobobook.co.kr/detail/S000211502186
+- 예스24 https://www.yes24.com/Product/Goods/123773068
+- 알라딘 https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=329277786
 
 ---
 
